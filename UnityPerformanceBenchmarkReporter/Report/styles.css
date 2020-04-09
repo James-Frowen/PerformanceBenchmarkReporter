@@ -1,4 +1,4 @@
-﻿.body * {
+.body * {
     font-family: 'Arial', 'Helvetica', 'Helvetica Neue', sans-serif !important;
 }
 
@@ -423,7 +423,7 @@ pre {
     width: 99%;
     height: 18vh;
     font-family: 'Arial', 'Helvetica', 'Helvetica Neue', sans-serif;
-    min-height: 200px;
+    min-height: 400px;
 }
 
 .divider {
