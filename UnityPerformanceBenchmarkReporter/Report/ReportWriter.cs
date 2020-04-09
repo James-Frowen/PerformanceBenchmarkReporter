@@ -42,7 +42,7 @@ namespace UnityPerformanceBenchmarkReporter.Report
         }
 
         public void WriteReport(PerformanceTestRunResult[] results, uint sigFig = 2,
-            string reportDirectoryPath = null, bool hasBenchmarkResults = false)
+            string reportDirectoryPath = null, string reportHtmlName = null, bool hasBenchmarkResults = false)
         {
             if (results != null && results.Length > 0)
             {
@@ -55,7 +55,7 @@ namespace UnityPerformanceBenchmarkReporter.Report
 
                 var reportDirectory = EnsureBenchmarkDirectory(reportDirectoryPath);
                 WriteEmbeddedResourceFiles(reportDirectory);
-                var benchmarkReportFile = GetBenchmarkReportFile(reportDirectory);
+                var benchmarkReportFile = GetBenchmarkReportFile(reportDirectory, reportHtmlName);
                 using (var rw = new StreamWriter(benchmarkReportFile))
                 {
                     WriteHtmlReport(rw);
@@ -68,11 +68,22 @@ namespace UnityPerformanceBenchmarkReporter.Report
             }
         }
 
-        private FileStream GetBenchmarkReportFile(DirectoryInfo benchmarkDirectory)
+        private FileStream GetBenchmarkReportFile(DirectoryInfo benchmarkDirectory, string reportHtmlName = null)
         {
-            perfBenchmarkReportNameFormat = "{0}_{1:yyyy-MM-dd_hh-mm-ss-fff}.html";
-            var htmlFileName = Path.Combine(benchmarkDirectory.FullName,
-                string.Format(perfBenchmarkReportNameFormat, perfBenchmarkReportName, DateTime.Now));
+            string htmlFileName = null;
+            if (string.IsNullOrEmpty(reportHtmlName))
+            {
+                perfBenchmarkReportNameFormat = "{0}_{1:yyyy-MM-dd_hh-mm-ss-fff}.html";
+                htmlFileName = Path.Combine(benchmarkDirectory.FullName,
+                    string.Format(perfBenchmarkReportNameFormat, perfBenchmarkReportName, DateTime.Now));
+            }
+            else
+            {
+                var format = reportHtmlName.EndsWith(".html") ? "{0}" : "{0}.html";
+                htmlFileName = Path.Combine(benchmarkDirectory.FullName,
+                    string.Format(format, reportHtmlName));
+            }
+
             return TryCreateHtmlFile(htmlFileName);
         }
 

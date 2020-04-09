@@ -73,7 +73,10 @@ namespace UnityPerformanceBenchmarkReporter
                             performanceBenchmark.AddXmlSourcePath(xmlsource, "baseline", ResultType.Baseline);
                         })
                 .Add("report|reportdirpath:", "OPTIONAL - Path to where the report will be written. Default is current working directory.",
-                    performanceBenchmark.AddReportDirPath);
+                    performanceBenchmark.AddReportDirPath)
+                .Add("name|reportname:", "OPTIONAL - Name of the generated HTML file" ,
+                     performanceBenchmark.AddReportHtmlName);
+
         }
 
         private void ShowHelp(string message, OptionSet optionSet)

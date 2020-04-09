@@ -29,6 +29,7 @@ namespace UnityPerformanceBenchmarkReporter
         public HashSet<string> BaselineXmlFilePaths { get; } = new HashSet<string>();
         public uint SigFig { get; }
         public string ReportDirPath { get; private set; }
+        public string ReportHtmlName { get; private set; }
 
 
         public bool BaselineResultFilesExist => BaselineXmlFilePaths.Any();
@@ -203,6 +204,11 @@ namespace UnityPerformanceBenchmarkReporter
         public void AddReportDirPath(string reportDirectoryPath)
         {
             ReportDirPath = reportDirectoryPath;
+        }
+
+        public void AddReportHtmlName(string reportHtmlName)
+        {
+            ReportHtmlName = reportHtmlName;
         }
     }
 }

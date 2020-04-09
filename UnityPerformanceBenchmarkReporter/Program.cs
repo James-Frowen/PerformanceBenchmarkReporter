@@ -90,6 +90,7 @@ namespace UnityPerformanceBenchmarkReporter
                 performanceTestResults, 
                 performanceBenchmark.SigFig, 
                 performanceBenchmark.ReportDirPath, 
+                performanceBenchmark.ReportHtmlName,
                 performanceBenchmark.BaselineResultFilesExist);
         }
     }
