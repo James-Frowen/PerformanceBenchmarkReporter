@@ -422,8 +422,15 @@ namespace UnityPerformanceBenchmarkReporter.Report
                 "return tooltipItems[0].xLabel + (color === failColor ? \" regressed\" : \" within threshold\");},");
             rw.WriteLine("beforeFooter: function(tooltipItems, data) {");
             rw.WriteLine("var std = {0}_Stdev_Values[tooltipItems[0].index];", canvasId);
+            rw.WriteLine("var baseAvg = {0}_Average_Values[0];", canvasId);
+            rw.WriteLine("var currentAvg = {0}_Average_Values[tooltipItems[0].index];", canvasId);
+            rw.WriteLine("var change = (currentAvg - baseAvg) / baseAvg * 100;");
             rw.WriteLine(
-                "var footermsg = ['Threshold: {0}']; footermsg.push('Standard deviation: ' + std); footermsg.push('Sample count: {1}'); return footermsg;}},",
+                "var footermsg = ['Threshold: {0}']; " +
+                "footermsg.push('Standard deviation: ' + std); " +
+                "footermsg.push('Sample count: {1}'); " +
+                "footermsg.push('Average vs Baseline: ' + change.toFixed(2) + '%'); " +
+                "return footermsg;}},",
                 threshold, sampleCount);
             rw.WriteLine("},");
             rw.WriteLine("footerFontStyle: 'normal'");
